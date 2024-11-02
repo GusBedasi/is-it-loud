@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Is It Loud? 
+### Consciência sonora para todos
 
-## Getting Started
+O "Is It Loud?" é uma ferramenta inovadora projetada para auxiliar pessoas surdas a compreenderem melhor o ambiente sonoro ao seu redor. Nossa missão é proporcionar informações visuais claras sobre os níveis de ruído de objetos e aparelhos comuns do dia a dia.
 
-First, run the development server:
+## Por que isso importa?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Para pessoas surdas, avaliar o impacto sonoro de diferentes objetos pode ser um desafio significativo. Alguns aparelhos domésticos, como secadores de cabelo ou liquidificadores, podem produzir ruídos intensos sem que a pessoa perceba. Isso pode afetar não apenas sua interação com o ambiente, mas também a convivência com pessoas ouvintes.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como funciona?
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Nossa plataforma oferece:
+- Uma interface visual intuitiva que indica os níveis de ruído através de um sistema de cores
+- Uma extensa biblioteca de objetos e aparelhos comuns
+- Informações detalhadas sobre a intensidade sonora em decibéis
+- Busca rápida e fácil acesso às informações
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Para quem é?
 
-## Learn More
+- Pessoas surdas que desejam ter mais autonomia no uso de aparelhos domésticos
+- Familiares e amigos que convivem com pessoas surdas
+- Profissionais e instituições que trabalham com a comunidade surda
+- Qualquer pessoa interessada em consciência sonora
 
-To learn more about Next.js, take a look at the following resources:
+## Nosso objetivo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Queremos criar um ambiente mais inclusivo onde pessoas surdas possam fazer escolhas informadas sobre os objetos que utilizam, considerando seu impacto sonoro no ambiente e nas pessoas ao seu redor.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Junte-se a nós nessa jornada de tornar o mundo mais acessível e compreensível para todos.
 
-## Deploy on Vercel
+## Preview do site
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Screenshot 2024-11-02 003515](https://github.com/user-attachments/assets/cc167fb3-bdb6-4ce4-8761-2c7b50384e66)
