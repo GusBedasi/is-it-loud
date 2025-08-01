@@ -86,32 +86,27 @@ O **Is It Loud?** é uma ferramenta de acessibilidade que transforma informaçõ
 ### 🔍 Resultados de Busca
 *Grid responsivo com indicadores visuais de nível sonoro*
 
-![Search Results](docs/images/search-results.png)
+> **Nota**: Para ver os resultados de busca, digite qualquer item (ex: "liquidificador") na barra de pesquisa da página inicial.
 
 ### 📝 Formulário de Submissão
 *Interface completa para contribuições da comunidade com rate limiting*
 
-![Submit Form](docs/images/submit-form.png)
+![Submit Form](docs/images/add-new-page.png)
 
 ### 🔐 Login Administrativo
 *Sistema de autenticação seguro para moderadores*
 
-![Admin Login](docs/images/admin-login.png)
+![Admin Login](docs/images/login.png)
 
-### 📋 Painel de Submissões
+### 📋 Painel Administrativo
 *Interface de moderação com filtros e busca avançada*
 
-![Admin Submissions](docs/images/admin-submissions.png)
-
-### ✅ Itens Aprovados
-*Gerenciamento de conteúdo publicado*
-
-![Admin Approved](docs/images/admin-approved.png)
+![Admin Panel](docs/images/admin.png)
 
 ### 🔍 Revisão Detalhada
 *Interface completa para análise e aprovação de submissões*
 
-![Admin Review](docs/images/admin-review.png)
+![Admin Review](docs/images/review.png)
 
 ---
 
