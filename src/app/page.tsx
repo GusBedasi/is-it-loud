@@ -1,78 +1,62 @@
 "use client"
 
-import { useState } from 'react';
-import { Search, Volume2, Volume1, VolumeX } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect } from 'react';
+import { Search, Volume2, Volume1, VolumeX, X } from 'lucide-react';
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import Image from "next/image";
-
-interface Item {
-  id: number;
-  name: string;
-  soundLevel: number;
-  image: string;
-  category: string;
-  description: string;
-}
-
-interface SoundInfo {
-  icon: JSX.Element;
-  text: string;
-  variant: 'default' | 'destructive' | 'warning' | 'success';
-  description: string;
-}
-
-const items: Item[] = [
-  {
-    id: 1,
-    name: 'Secador de Cabelo',
-    soundLevel: 85,
-    image: 'https://images.unsplash.com/photo-1621607510248-9c78bbab941b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    category: 'Equipamentos Domésticos',
-    description: 'Usado para secar cabelos, produz um ruído constante e alto'
-  },
-  {
-    id: 2,
-    name: 'Aspirador de Pó',
-    soundLevel: 75,
-    image: 'https://images.unsplash.com/photo-1722710070534-e31f0290d8de?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    category: 'Equipamentos Domésticos',
-    description: 'Aparelho de limpeza com motor que gera ruído considerável'
-  },
-  {
-    id: 3,
-    name: 'Liquidificador',
-    soundLevel: 80,
-    image: 'https://plus.unsplash.com/premium_photo-1663853294058-3f85f18a4bed?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    category: 'Cozinha',
-    description: 'Processador de alimentos com lâminas rotativas de alta velocidade'
-  },
-  {
-    id: 4,
-    name: 'Ventilador',
-    soundLevel: 45,
-    image: 'https://images.unsplash.com/photo-1528293064916-02c0435e416d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    category: 'Equipamentos Domésticos',
-    description: 'Aparelho de ventilação com ruído suave e constante'
-  }
-];
+import { getItems, searchItems, Item, SoundInfo } from '@/lib/data';
 
 const SoundLevelApp = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showResults, setShowResults] = useState(false);
+  const [items, setItems] = useState<Item[]>([]);
+  const [filteredItems, setFilteredItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredItems = items.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Load initial items
+  useEffect(() => {
+    const loadItems = async () => {
+      try {
+        const data = await getItems();
+        setItems(data);
+      } catch (error) {
+        console.error('Error loading items:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadItems();
+  }, []);
+
+  // Handle search
+  useEffect(() => {
+    const performSearch = async () => {
+      if (searchTerm.trim()) {
+        try {
+          const results = await searchItems(searchTerm);
+          setFilteredItems(results);
+        } catch (error) {
+          console.error('Error searching items:', error);
+          setFilteredItems([]);
+        }
+      } else {
+        setFilteredItems([]);
+      }
+    };
+
+    performSearch();
+  }, [searchTerm]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
     setShowResults(value.length > 0);
+  };
+
+  const clearSearch = () => {
+    setSearchTerm('');
+    setShowResults(false);
   };
 
   const getSoundLevelInfo = (level: number): SoundInfo => {
@@ -101,109 +85,177 @@ const SoundLevelApp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto p-6">
-        {/* Header Section */}
-        <div className="text-center space-y-4 py-12">
-          <h1 className="text-4xl font-bold tracking-tight lg:text-5xl">
-            Is It Loud?
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Descubra o nível de ruído dos objetos ao seu redor
-          </p>
-        </div>
-
-        {/* Search Section */}
-        <div className="relative max-w-2xl mx-auto mb-12">
-          <div className="relative">
-            <Search className="absolute left-3 top-3 text-muted-foreground" size={20} />
-            <Input
-              type="text"
-              placeholder="Digite o nome do objeto..."
-              value={searchTerm}
-              onChange={handleSearch}
-              className="pl-10 h-12"
-            />
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center py-16 lg:py-20">
+            <h1 className="text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+              Is It Loud?
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+              Descubra o nível de ruído dos objetos ao seu redor e tome decisões mais conscientes sobre o ambiente sonoro
+            </p>
+            
+            {/* Search Section */}
+            <div className="max-w-2xl mx-auto">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Search className="text-gray-400" size={20} />
+                </div>
+                <Input
+                  type="text"
+                  placeholder="Digite o nome do objeto..."
+                  value={searchTerm}
+                  onChange={handleSearch}
+                  className="pl-12 pr-12 h-16 text-lg border-2 border-gray-200 rounded-full shadow-sm focus:border-gray-900 focus:ring-0 transition-colors"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={clearSearch}
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
+                    aria-label="Limpar busca"
+                  >
+                    <X size={20} />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Results Section */}
         {showResults && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredItems.map(item => {
-              const soundInfo = getSoundLevelInfo(item.soundLevel);
-              
-              return (
-                <Card key={item.id} className="flex flex-col">
-                  <CardHeader className="p-0">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      width={400}
-                      height={200}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                  </CardHeader>
-                  
-                  <CardContent className="pt-6 flex-grow">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <CardTitle className="text-xl mb-1">{item.name}</CardTitle>
-                        <CardDescription>{item.category}</CardDescription>
-                      </div>
-                      {soundInfo.icon}
-                    </div>
-                    
-                    <Separator className="my-4" />
-                    
-                    <div className="space-y-4">
-                      <div className="text-sm text-muted-foreground">
-                        {item.description}
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span>Nível de Som</span>
-                          <span className="font-medium">{item.soundLevel} dB</span>
+          <div>
+            <div className="mb-8">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                {filteredItems.length} {filteredItems.length === 1 ? 'resultado encontrado' : 'resultados encontrados'}
+              </h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredItems.map(item => {
+                const soundInfo = getSoundLevelInfo(item.soundLevel);
+                
+                return (
+                  <div key={item.id} className="group cursor-pointer">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:-translate-y-1">
+                      {/* Image Container */}
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 right-3">
+                          {soundInfo.icon}
                         </div>
-                        <Progress value={item.soundLevel} className="h-2" />
                       </div>
                       
-                      <Alert variant={soundInfo.variant as 'default' | 'destructive'}>
-                        <AlertDescription>
-                          {soundInfo.description}
-                        </AlertDescription>
-                      </Alert>
+                      {/* Content */}
+                      <div className="p-4">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-gray-900 text-lg leading-tight">
+                              {item.name}
+                            </h3>
+                            <p className="text-gray-500 text-sm mt-1">
+                              {item.category}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                          {item.description}
+                        </p>
+                        
+                        {/* Sound Level Bar */}
+                        <div className="space-y-2 mb-4">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-gray-700">Nível de Som</span>
+                            <span className="text-sm font-semibold text-gray-900">{item.soundLevel} dB</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div 
+                              className={`h-2 rounded-full transition-all duration-500 ${
+                                item.soundLevel >= 80 ? 'bg-red-500' :
+                                item.soundLevel >= 60 ? 'bg-yellow-500' : 'bg-green-500'
+                              }`}
+                              style={{ width: `${Math.min((item.soundLevel / 100) * 100, 100)}%` }}
+                            />
+                          </div>
+                        </div>
+                        
+                        {/* Sound Level Badge */}
+                        <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                          soundInfo.variant === 'destructive' ? 'bg-red-100 text-red-800' :
+                          soundInfo.variant === 'warning' ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-green-100 text-green-800'
+                        }`}>
+                          {soundInfo.text}
+                        </div>
+                      </div>
                     </div>
-                  </CardContent>
-                  
-                  <CardFooter className="pt-2">
-                    <Badge variant={soundInfo.variant as 'default' | 'destructive'} className="w-full justify-center">
-                      {soundInfo.text}
-                    </Badge>
-                  </CardFooter>
-                </Card>
-              );
-            })}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 
         {/* Empty State */}
         {searchTerm && filteredItems.length === 0 && (
-          <Alert variant="default" className="max-w-2xl mx-auto">
-            <AlertDescription className="text-center">
-              Nenhum item encontrado para &quot;{searchTerm}&quot;
-            </AlertDescription>
-          </Alert>
+          <div className="text-center py-16">
+            <div className="max-w-md mx-auto">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="text-gray-400" size={24} />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Nenhum resultado encontrado
+              </h3>
+              <p className="text-gray-600">
+                Não encontramos nenhum item para &quot;{searchTerm}&quot;. Tente buscar por outros objetos.
+              </p>
+            </div>
+          </div>
         )}
 
         {/* Initial State */}
         {!showResults && (
-          <Alert variant="default" className="max-w-2xl mx-auto">
-            <AlertDescription className="text-center">
-              Digite o nome de um objeto para descobrir seu nível de ruído
-            </AlertDescription>
-          </Alert>
+          <div className="text-center py-16">
+            <div className="max-w-lg mx-auto">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Volume2 className="text-indigo-600" size={32} />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                Comece sua busca
+              </h3>
+              <p className="text-gray-600 mb-8">
+                Digite o nome de um objeto no campo acima para descobrir seu nível de ruído e obter informações detalhadas.
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                {items.map(item => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setSearchTerm(item.name);
+                      setShowResults(true);
+                    }}
+                    className="p-3 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all duration-200 text-center group"
+                  >
+                    <div className="text-sm font-medium text-gray-900 group-hover:text-indigo-600 transition-colors">
+                      {item.name}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

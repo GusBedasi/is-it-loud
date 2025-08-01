@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Secador de Cabelo",
+    "soundLevel": 85,
+    "image": "https://images.unsplash.com/photo-1621607510248-9c78bbab941b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Equipamentos Domésticos",
+    "description": "Usado para secar cabelos, produz um ruído constante e alto"
+  },
+  {
+    "id": 2,
+    "name": "Aspirador de Pó",
+    "soundLevel": 75,
+    "image": "https://images.unsplash.com/photo-1722710070534-e31f0290d8de?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Equipamentos Domésticos",
+    "description": "Aparelho de limpeza com motor que gera ruído considerável"
+  },
+  {
+    "id": 3,
+    "name": "Liquidificador",
+    "soundLevel": 80,
+    "image": "https://plus.unsplash.com/premium_photo-1663853294058-3f85f18a4bed?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Cozinha",
+    "description": "Processador de alimentos com lâminas rotativas de alta velocidade"
+  },
+  {
+    "id": 4,
+    "name": "Ventilador",
+    "soundLevel": 45,
+    "image": "https://images.unsplash.com/photo-1528293064916-02c0435e416d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Equipamentos Domésticos",
+    "description": "Aparelho de ventilação com ruído suave e constante"
+  },
+  {
+    "id": 5,
+    "name": "Micro-ondas",
+    "soundLevel": 65,
+    "image": "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Cozinha",
+    "description": "Aparelho que aquece alimentos usando ondas eletromagnéticas"
+  },
+  {
+    "id": 6,
+    "name": "Máquina de Lavar",
+    "soundLevel": 70,
+    "image": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Equipamentos Domésticos",
+    "description": "Eletrodoméstico para lavagem de roupas com ciclos variados"
+  },
+  {
+    "id": 7,
+    "name": "Ar Condicionado",
+    "soundLevel": 55,
+    "image": "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Climatização",
+    "description": "Sistema de refrigeração e climatização de ambientes"
+  },
+  {
+    "id": 8,
+    "name": "Televisão",
+    "soundLevel": 40,
+    "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Eletrônicos",
+    "description": "Aparelho de entretenimento com som variável conforme volume"
+  },
+  {
+    "id": 9,
+    "name": "Impressora",
+    "soundLevel": 50,
+    "image": "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Eletrônicos",
+    "description": "Equipamento de impressão de documentos e imagens"
+  },
+  {
+    "id": 10,
+    "name": "Cafeteira",
+    "soundLevel": 60,
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "category": "Cozinha",
+    "description": "Máquina para preparo de café com bomba de pressão"
+  }
+]
