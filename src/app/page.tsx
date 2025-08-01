@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { Search, Volume2, Volume1, VolumeX, X } from 'lucide-react';
+import { Search, Volume2, Volume1, VolumeX, X, Plus } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { getItems, searchItems, Item, SoundInfo } from '@/lib/data';
+import { SubmitItemForm } from '@/components/submit-item-form';
 
 const SoundLevelApp = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,6 +13,7 @@ const SoundLevelApp = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [filteredItems, setFilteredItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showSubmitForm, setShowSubmitForm] = useState(false);
 
   // Load initial items
   useEffect(() => {
@@ -120,6 +122,17 @@ const SoundLevelApp = () => {
                   </button>
                 )}
               </div>
+              
+              {/* Submit Item Button */}
+              <div className="text-center mt-6">
+                <button
+                  onClick={() => setShowSubmitForm(true)}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors shadow-sm"
+                >
+                  <Plus size={20} />
+                  Sugerir Novo Item
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -227,15 +240,15 @@ const SoundLevelApp = () => {
 
         {/* Initial State */}
         {!showResults && (
-          <div className="text-center py-16">
+          <div className="text-center py-8">
             <div className="max-w-lg mx-auto">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Volume2 className="text-indigo-600" size={32} />
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Volume2 className="text-indigo-600" size={24} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 Comece sua busca
               </h3>
-              <p className="text-gray-600 mb-8">
+              <p className="text-gray-600 mb-4">
                 Digite o nome de um objeto no campo acima para descobrir seu nível de ruído e obter informações detalhadas.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
@@ -258,6 +271,12 @@ const SoundLevelApp = () => {
           </div>
         )}
       </div>
+      
+      {/* Submit Item Form Modal */}
+      <SubmitItemForm 
+        isOpen={showSubmitForm} 
+        onClose={() => setShowSubmitForm(false)} 
+      />
     </div>
   );
 };

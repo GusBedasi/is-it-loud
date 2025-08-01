@@ -34,3 +34,38 @@ export interface ImageCDNConfig {
     fit?: 'cover' | 'contain' | 'fill';
   };
 }
+
+// Pending submission interfaces
+export interface PendingSubmission {
+  id: string;
+  name: string;
+  estimatedSoundLevel: number;
+  imageUrl: string;
+  category: string;
+  description: string;
+  submitterName: string;
+  submitterEmail: string;
+  additionalInfo: string;
+  status: 'pending' | 'approved' | 'rejected';
+  submittedAt: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+  reviewNotes?: string;
+  actualSoundLevel?: number; // Set by admin after verification
+}
+
+export interface SubmissionStats {
+  total: number;
+  pending: number;
+  approved: number;
+  rejected: number;
+}
+
+export interface PendingSubmissionDataSource {
+  submitItem(submission: Omit<PendingSubmission, 'id' | 'status' | 'submittedAt'>): Promise<string>;
+  getPendingSubmissions(): Promise<PendingSubmission[]>;
+  getSubmissionById(id: string): Promise<PendingSubmission | null>;
+  updateSubmissionStatus(id: string, status: 'approved' | 'rejected', reviewNotes?: string, actualSoundLevel?: number): Promise<void>;
+  getSubmissionStats(): Promise<SubmissionStats>;
+  approveAndAddToItems(submissionId: string, actualSoundLevel: number): Promise<Item>;
+}
